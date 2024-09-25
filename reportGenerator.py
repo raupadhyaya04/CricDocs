@@ -1,48 +1,104 @@
-def generate_text_report(team, opposition, venue, victor, margin, endState, date, book, overview, bBatter, bBowler, mCatches, mRunouts, goodBatSkills, goodBowlSkills, goodFieldSkills, badBatSkills, badBowlSkills, badFieldSkills, motm, goodPlayers, name, position):
-    text = f"""\033[3mMatch Report — {team} vs {opposition} ({venue}):\033[3m
+def generate_text_report(club, team, opposition, venue, victor, margin, endState, date, book, toss_details, first_innings, second_innings, bBatter, batStats, bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, honMentions, name, position):
+    title = f"""\033[3mMatch Report — {club} {team} vs {opposition} ({venue}):\033[3m
 
 Result: {victor} won by {margin} {endState}
 Date: {date}
-Scorebook: {book}
+Scorebook: {book}/n
+"""
+    overview = f"""Match Overview:
+Toss:
+At the toss, {toss_details}
 
-Match Overview:
-{overview}
+First Innings:
+In the first innings, {first_innings}.
 
-Stats:
-Best Batting: {bBatter}
-Best Bowling: {bBowler}
-Most Catches: {mCatches}
-Most runouts: {mRunouts}
-
-Skill Breakdown:
+Second Innings:
+In the second innnings, {second_innings}.\n
+"""
+    if mCatches == "" and mRunouts == "":
+        stat = f"""Stats:
+Best Batting: {bBatter}, {batStats} runs
+Best Bowling: {bBowler}, {bowlStats}\n
+"""
+    elif mRunouts == "":
+        stat = f"""Stats:
+Best Batting: {bBatter}, {batStats} runs
+Best Bowling: {bBowler}, {bowlStats}
+Most Catches: {mCatches}, {catchStats} catches\n
+"""
+    elif mCatches == "":
+        stat = f"""Stats:
+Best Batting: {bBatter}, {batStats} runs
+Best Bowling: {bBowler}, {bowlStats}
+Most runouts: {mRunouts}, {nRunouts} runouts\n
+"""
+    else:
+        stat = f"""Stats:
+    Best Batting: {bBatter}, {batStats} runs
+    Best Bowling: {bBowler}, {bowlStats}
+    Most Catches: {mCatches}, {catchStats} catches
+    Most runouts: {mRunouts}, {nRunouts} runouts\n
+    """
+        
+    skills = f"""Skill Breakdown:
 What went well:
 Batting:
 {goodBatSkills}
 
+Why it was good that these skills were done well:
+{whyGoodBat}
+
 Bowling:
 {goodBowlSkills}
 
+Why it was good that these skills were done well:
+{whyGoodBowl}
+
 Fielding:
 {goodFieldSkills}
+
+Why it was good that these skills were done well:
+{whyGoodField}
 
 What to improve on:
 Batting:
 {badBatSkills}
 
+Why it's important to improve these skills to a better standard and suggestions I'd make to the players/parents of players:
+{whyBadBat}
+
 Bowling:
 {badBowlSkills}
+
+Why it's important to improve these skills to a better standard and suggestions I'd make to the players/parents of players:
+{whyBadBowl}
 
 Fielding:
 {badFieldSkills}
 
-
-Man of the match: {motm}
+Why it's important to improve these skills to a better standard and suggestions I'd make to the players/parents of players:
+{whyBadField}
+\n
+"""
+    if honMentions == "":
+        mentions = f"""Player of the match: {bestPlayer} for their {bestStats}\n
+"""
+    else:
+        mentions = f"""Player of the match: {bestPlayer} for their {bestStats}
 
 Honourable mentions:
-{goodPlayers}
-
-
-Best wishes,
+{honMentions}\n
+"""
+    signoff = f"""Best wishes,
 {name},
 {position}"""
+
+    text = title + overview + stat + skills + mentions + signoff
     return text
+
+def honMention(players, stats):
+    string = ""
+    for p in players:
+        for s in stats:
+            string += f"{p} for their {s}\n"
+    return string
