@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Match Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="date"], input[type="url"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Cricket Match Report</h1>
+
+<form action="/submit_report" method="post">
+    <h2>Main Details</h2>
+    
+    <label for="club">Which club is this for?</label>
+    <input type="text" id="club" name="club" required>
+
+    <label for="team">Which team was playing?</label>
+    <input type="text" id="team" name="team" required>
+
+    <label for="opposition">Which club was the team playing against?</label>
+    <input type="text" id="opposition" name="opposition" required>
+
+    <label for="venue">Was this game at Home or Away?</label>
+    <input type="text" id="venue" name="venue" required>
+
+    <label for="victor">Who won this game?</label>
+    <input type="text" id="victor" name="victor" required>
+
+    <label for="endState">Did they bat or bowl first?</label>
+    <select id="endState" name="endState" required>
+        <option value="bat">Bat</option>
+        <option value="bowl">Bowl</option>
+    </select>
+
+    <label for="margin">How many runs/wickets did they win by?</label>
+    <input type="text" id="margin" name="margin" required>
+
+    <label for="date">What's today's date?</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="book">Where can people find the scorebook? (insert the link if there is one)</label>
+    <input type="url" id="book" name="book">
+
+    <h2>Match Overview</h2>
+    
+    <label for="toss_details">Describe what happened at the coin toss</label>
+    <textarea id="toss_details" name="toss_details" required></textarea>
+
+    <label for="first_innings">Describe what happened in the first innings</label>
+    <textarea id="first_innings" name="first_innings" required></textarea>
+
+    <label for="second_innings">Describe what happened in the second innings</label>
+    <textarea id="second_innings" name="second_innings" required></textarea>
+
+    <h2>Stats</h2>
+
+    <label for="bBatter">Who was the best batter?</label>
+    <input type="text" id="bBatter" name="bBatter" required>
+
+    <label for="batStats">How many runs did they score?</label>
+    <input type="text" id="batStats" name="batStats" required>
+
+    <label for="bBowler">Who was the best bowler?</label>
+    <input type="text" id="bBowler" name="bBowler" required>
+
+    <label for="bowlStats">What were their bowling figures?</label>
+    <input type="text" id="bowlStats" name="bowlStats" required>
+
+    <label for="mCatches">Who took the most catches?</label>
+    <input type="text" id="mCatches" name="mCatches" required>
+
+    <label for="catchStats">How many catches did they take?</label>
+    <input type="text" id="catchStats" name="catchStats" required>
+
+    <label for="mRunouts">Who got the most runouts?</label>
+    <input type="text" id="mRunouts" name="mRunouts" required>
+
+    <label for="nRunouts">How many runouts did they get?</label>
+    <input type="text" id="nRunouts" name="nRunouts" required>
+
+    <h2>Skill Breakdown</h2>
+
+    <label for="goodBatSkills">What skills were well implemented by the batters?</label>
+    <textarea id="goodBatSkills" name="goodBatSkills" required></textarea>
+
+    <label for="whyGoodBat">Why was it good that these skills were done well?</label>
+    <textarea id="whyGoodBat" name="whyGoodBat" required></textarea>
+
+    <label for="goodBowlSkills">What skills were well implemented by the bowlers?</label>
+    <textarea id="goodBowlSkills" name="goodBowlSkills" required></textarea>
+
+    <label for="whyGoodBowl">Why was it good that these skills were done well?</label>
+    <textarea id="whyGoodBowl" name="whyGoodBowl" required></textarea>
+
+    <label for="goodFieldSkills">What skills were well implemented by the fielders?</label>
+    <textarea id="goodFieldSkills" name="goodFieldSkills" required></textarea>
+
+    <label for="whyGoodField">Why was it good that these skills were done well?</label>
+    <textarea id="whyGoodField" name="whyGoodField" required></textarea>
+
+    <label for="badBatSkills">What skills were not as well implemented by the batters?</label>
+    <textarea id="badBatSkills" name="badBatSkills" required></textarea>
+
+    <label for="whyBadBat">Why is it important to work on these skills?</label>
+    <textarea id="whyBadBat" name="whyBadBat" required></textarea>
+
+    <label for="badBowlSkills">What skills were not as well implemented by the bowlers?</label>
+    <textarea id="badBowlSkills" name="badBowlSkills" required></textarea>
+
+    <label for="whyBadBowl">Why is it important to work on these skills?</label>
+    <textarea id="whyBadBowl" name="whyBadBowl" required></textarea>
+
+    <label for="badFieldSkills">What skills were not as well implemented by the fielders?</label>
+    <textarea id="badFieldSkills" name="badFieldSkills" required></textarea>
+
+    <label for="whyBadField">Why is it important to work on these skills?</label>
+    <textarea id="whyBadField" name="whyBadField" required></textarea>
+
+    <h2>Mentions</h2>
+
+    <label for="bestPlayer">Who is the player of the Match?</label>
+    <input type="text" id="bestPlayer" name="bestPlayer" required>
+
+    <label for="bestStats">What was the main statistic(s) that stood out?</label>
+    <input type="text" id="bestStats" name="bestStats" required>
+
+    <label for="honMentions">Are there any honourable mentions?</label>
+    <select id="honMentions" name="honMentions">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select>
+
+    <label for="goodPlayers">Any other performances that deserve credit?</label>
+    <textarea id="goodPlayers" name="goodPlayers"></textarea>
+
+    <label for="goodStats">What was the main statistic(s) that stood out for the honourable mentions?</label>
+    <textarea id="goodStats" name="goodStats"></textarea>
+
+    <h2>Signing Off</h2>
+
+    <label for="name">What is your name?</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="position">What position do you work as in terms of coaching?</label>
+    <input type="text" id="position" name="position" required>
+
+    <button type="submit">Submit Report</button>
+</form>
+
+</body>
+</html>
