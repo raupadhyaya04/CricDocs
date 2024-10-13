@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template
 from reportGenerator import generate_text_report, honMention
 from sessionPlanGenerator import generate_session_plan_text
 
@@ -6,59 +6,61 @@ app = Flask(__name__)
 goodPlayers = []
 goodStats = []
 
-# @app.route('/')
-# def getLandingPage():
- #   return 
+@app.route('/')
+def getLandingPage():
+    return render_template("index.html")
 
-@app.route('/generate_cricket_match_report', methods=['POST', 'GET'])
+@app.route('/generate/cricket/match_report', methods=['POST', 'GET'])
 def generate_report():
     if request.method == "POST":
-        club = request.form["clubName"]
-        team = request.form["teamGroup"]
-        opposition = request.form["opp"]
-        venue = request.form["venue"]
-        victor = request.form["victor"]
-        margin = request.form["margin"]
-        endState = request.form["endState"]
-        date = request.form["date"]
-        book = request.form["book"]
-        toss_details = request.form["toss_details"]
-        first_innings = request.form["first_innings"]
-        second_innings = request.form["second_innings"]
-        bBatter = request.form["bBatter"]
-        batStats = request.form["batStats"]
-        bBowler = request.form["bBowler"]
-        bowlStats = request.form["bowlStats"]
-        mCatches = request.form["mCatches"]
-        catchStats = request.form["catchStats"]
-        mRunouts = request.form["mRunouts"]
-        nRunouts = request.form["nRunouts"]
-        goodBatSkills = request.form["goodBatSkills"]
-        whyGoodBat = request.form["whyGoodBat"]
-        goodBowlSkills = request.form["goodBowlSkills"]
-        whyGoodBowl = request.form["whyGoodBowl"]
-        goodFieldSkills = request.form["goodFieldSkills"]
-        whyGoodField = request.form["whyGoodField"]
-        badBatSkills = request.form["badBatSkills"]
-        whyBadBat = request.form["whyBadBat"]
-        badBowlSkills = request.form["badBowlSkills"]
-        whyBadBowl = request.form["whyBadBowl"]
-        badFieldSkills = request.form["badFieldSkills"]
-        whyBadField = request.form["whyBadField"]
-        bestPlayer = request.form["bestPlayer"]
-        bestStats = request.form["bestStats"]
-        goodPlayer = request.form["goodPlayer"]
+        clubs = request.form['club']
+        team = request.form['team']
+        opposition = request.form['opposition']
+        venue = request.form.get('venue')
+        victor = request.form.get('victor')
+        endState = request.form.get('endState')
+        margin = request.form.get('margin')
+        date = request.form.get('date')
+        book = request.form.get('book')
+        toss_details = request.form.get('toss_details')
+        first_innings = request.form.get('first_innings')
+        second_innings = request.form.get('second_innings')
+        bBatter = request.form.get('bBatter')
+        batStats = request.form.get('batStats')
+        bBowler = request.form.get('bBowler')
+        bowlStats = request.form.get('bowlStats')
+        mCatches = request.form.get('mCatches')
+        catchStats = request.form.get('catchStats')
+        mRunouts = request.form.get('mRunouts')
+        nRunouts = request.form.get('nRunouts')
+        bestPlayer = request.form.get('bestPlayer')
+        bestStats = request.form.get('bestStats')
+        honMentions = request.form.get('honMentions')
+        goodPlayer = request.form.get('goodPlayers')
         goodPlayers.append(goodPlayer)
-        goodStat = request.form["goodStat"]
+        goodStat = request.form.get('goodStats')
         goodStats.append(goodStat)
-        name = request.form["coachName"]
-        position = request.form["coachPos"]
+        name = request.form.get('name')
+        position = request.form.get('position')
+
+        goodBatSkills = request.form.get('goodBatSkills')
+        whyGoodBat = request.form.get('whyGoodBat')
+        goodBowlSkills = request.form.get('goodBowlSkills')
+        whyGoodBowl = request.form.get('whyGoodBowl')
+        goodFieldSkills = request.form.get('goodFieldSkills')
+        whyGoodField = request.form.get('whyGoodField')
+        badBatSkills = request.form.get('badBatSkills')
+        whyBadBat = request.form.get('whyBadBat')
+        badBowlSkills = request.form.get('badBowlSkills')
+        whyBadBowl = request.form.get('whyBadBowl')
+        badFieldSkills = request.form.get('badFieldSkills')
+        whyBadField = request.form.get('whyBadField')
+        
     
-    honMentions = honMention(goodPlayers, goodStats)
-    return jsonify({"report": generate_text_report(club, team, opposition, venue, victor, margin, endState, date, book, toss_details, first_innings, second_innings, bBatter, batStats, bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, honMentions, name, position)})
+    
+    return render_template("reportGen.html")
 
-
-@app.route('/generate_cricket_match_report', methods=['POST', 'GET'])
+@app.route('/generate/cricket/session_planner', methods=['POST', 'GET'])
 def generate_session_planner():
     if request.method == "POST":
         age = request.form["age"]
@@ -75,8 +77,9 @@ def generate_session_planner():
         games = request.form["games"]
         cooldown = request.form["cooldown"]
         eval = request.form["eval"]
-    
-    return jsonify({"session plan": generate_session_plan_text(age, cgoals, pgoals, date, venue, duration, equipment, safety, warmup, skills, drills, games, cooldown, eval)})
+
+    text = generate_session_plan_text(age, cgoals, pgoals, date, venue, duration, equipment, safety, warmup, skills, drills, games, cooldown, eval)
+    return text
 
 if __name__ == '__main__':
     app.run(debug=True)
