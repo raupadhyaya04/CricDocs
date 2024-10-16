@@ -84,6 +84,7 @@ def outputReport():
 
     # Main Details:
     club = match_data.get('club')
+    gender = match_data.get('gender')
     team = match_data.get('team')
     opposition = match_data.get('opposition')
     venue = match_data.get('venue')
@@ -137,7 +138,7 @@ def outputReport():
     name = match_data.get('name')
     position = match_data.get('position')
 
-    text = generate_text_report(club, team, opposition, venue, victor, margin, endState, date, 
+    text = generate_text_report(club, gender, team, opposition, venue, victor, margin, endState, date, 
                                 book, toss_details, first_innings, second_innings, bBatter, batStats, 
                                 bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, 
                                 whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, 

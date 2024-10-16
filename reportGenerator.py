@@ -1,6 +1,6 @@
-def generate_text_report(club, team, opposition, venue, victor, margin, endState, date, book, toss_details, first_innings, second_innings, bBatter, batStats, bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, honMentions, name, position):
+def generate_text_report(club, gender, team, opposition, venue, victor, margin, endState, date, book, toss_details, first_innings, second_innings, bBatter, batStats, bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, honMentions, name, position):
     title = f"""
-Match Report — {club} {team} vs {opposition} ({venue}):
+Match Report — {club} {gender} {team} vs {opposition} ({venue}):
 
 Result: {victor} won by {margin} {endState}
 Date: {date}
