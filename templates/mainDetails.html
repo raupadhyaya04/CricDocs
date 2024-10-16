@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Match Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+
+<body>
+<h1>Cricket Match Report -- Main Details</h1>
+
+<form action="/generate/cricket/match_report/main-details" method="post"> 
+    <label for="club">Which club is this for?</label>
+    <input type="text" id="club" name="club" required>
+
+    <label for="team">Which team was playing?</label>
+    <input type="text" id="team" name="team" required>
+
+    <label for="opposition">Which club was the team playing against?</label>
+    <input type="text" id="opposition" name="opposition" required>
+
+    <label for="venue">Was this game at Home or Away?</label>
+    <select id="venue" name="venue">
+        <option value="Home">Home</option>
+        <option value="Away">Away</option>
+    </select>
+
+    <label for="victor">Who won this game?</label>
+    <input type="text" id="victor" name="victor" required>
+
+    <label for="endState">Did they bat or bowl first?</label>
+    <select id="endState" name="endState" required>
+        <option value="bat">Bat</option>
+        <option value="bowl">Bowl</option>
+    </select>
+
+    <label for="margin">How many runs/wickets did they win by?</label>
+    <input type="text" id="margin" name="margin" required>
+
+    <label for="date">What's today's date?</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="book">Where can people find the scorebook? (insert the link if there is one)</label>
+    <input type="url" id="book" name="book">
+
+    <button type="submit">Submit Section</button>
+</form>
+<a href="/generate/cricket/match_report/match-overview">Go to next section</a>
+</body>
+</html>

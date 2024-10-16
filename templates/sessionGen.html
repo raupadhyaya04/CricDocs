@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching Session Form</title>
+</head>
+<body>
+
+<h1>Coaching Session Form</h1>
+<form action="/generate/cricket/session_planner" method="POST">
+    <label for="age">What age group are you coaching?</label><br>
+    <input type="text" id="age" name="age" required><br><br>
+
+    <label for="cgoals">What are your expected outcomes, as a coach from this session?</label><br>
+    <textarea id="cgoals" name="cgoals" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="pgoals">What are your expected outcomes, for the players from this session?</label><br>
+    <textarea id="pgoals" name="pgoals" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="date">What date is this session on during?</label><br>
+    <input type="date" id="date" name="date" required><br><br>
+
+    <label for="venue">Where is this session taking place?</label><br>
+    <input type="text" id="venue" name="venue" required><br><br>
+
+    <label for="duration">How long is this session going on for?</label><br>
+    <input type="text" id="duration" name="duration" required><br><br>
+
+    <label for="equipment">What equipment do you plan to use?</label><br>
+    <input type="text" id="equipment" name="equipment" required><br><br>
+
+    <label for="safety">What safety measures have to be considered?</label><br>
+    <textarea id="safety" name="safety" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="warmup">What is the planned warmup routine?</label><br>
+    <textarea id="warmup" name="warmup" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="skills">What skills do you look to deal with in this session?</label><br>
+    <textarea id="skills" name="skills" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="drills">What drills are you looking to implement in this session?</label><br>
+    <textarea id="drills" name="drills" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="games">What games are you looking to use in this session?</label><br>
+    <textarea id="games" name="games" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="cooldown">What is the planned cooldown routine?</label><br>
+    <textarea id="cooldown" name="cooldown" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="eval">After this session, what did you gain from it?</label><br>
+    <textarea id="eval" name="eval" rows="4" cols="50" required></textarea><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+<a href="/output/session_planner">View Session Plan</a>
+
+</body>
+</html>

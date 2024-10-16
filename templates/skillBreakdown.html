@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Match Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+
+<body>
+<h1>Cricket Match Report -- Skill Breakdown</h1>
+<form action="/generate/cricket/match_report/skill-breakdown" method="post">
+    <label for="goodBatSkills">What skills were well implemented by the batters?</label>
+    <textarea id="goodBatSkills" name="goodBatSkills" required></textarea>
+
+    <label for="whyGoodBat">Why was it good that these skills were done well?</label>
+    <textarea id="whyGoodBat" name="whyGoodBat" required></textarea>
+
+    <label for="goodBowlSkills">What skills were well implemented by the bowlers?</label>
+    <textarea id="goodBowlSkills" name="goodBowlSkills" required></textarea>
+
+    <label for="whyGoodBowl">Why was it good that these skills were done well?</label>
+    <textarea id="whyGoodBowl" name="whyGoodBowl" required></textarea>
+
+    <label for="goodFieldSkills">What skills were well implemented by the fielders?</label>
+    <textarea id="goodFieldSkills" name="goodFieldSkills" required></textarea>
+
+    <label for="whyGoodField">Why was it good that these skills were done well?</label>
+    <textarea id="whyGoodField" name="whyGoodField" required></textarea>
+
+    <label for="badBatSkills">What skills were not as well implemented by the batters?</label>
+    <textarea id="badBatSkills" name="badBatSkills" required></textarea>
+
+    <label for="whyBadBat">Why is it important to work on these skills?</label>
+    <textarea id="whyBadBat" name="whyBadBat" required></textarea>
+
+    <label for="badBowlSkills">What skills were not as well implemented by the bowlers?</label>
+    <textarea id="badBowlSkills" name="badBowlSkills" required></textarea>
+
+    <label for="whyBadBowl">Why is it important to work on these skills?</label>
+    <textarea id="whyBadBowl" name="whyBadBowl" required></textarea>
+
+    <label for="badFieldSkills">What skills were not as well implemented by the fielders?</label>
+    <textarea id="badFieldSkills" name="badFieldSkills" required></textarea>
+
+    <label for="whyBadField">Why is it important to work on these skills?</label>
+    <textarea id="whyBadField" name="whyBadField" required></textarea>
+
+    <button type="submit">Submit Section</button>
+</form>
+<a href="/generate/cricket/match_report/stats">Go to next section</a>
+</body>
+</html>

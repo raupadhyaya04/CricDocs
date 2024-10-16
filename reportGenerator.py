@@ -1,9 +1,10 @@
 def generate_text_report(club, team, opposition, venue, victor, margin, endState, date, book, toss_details, first_innings, second_innings, bBatter, batStats, bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, honMentions, name, position):
-    title = f"""\033[3mMatch Report — {club} {team} vs {opposition} ({venue}):\033[3m
+    title = f"""
+Match Report — {club} {team} vs {opposition} ({venue}):
 
 Result: {victor} won by {margin} {endState}
 Date: {date}
-Scorebook: {book}/n
+Scorebook: {book}\n
 """
     overview = f"""Match Overview:
 Toss:
@@ -96,9 +97,8 @@ Honourable mentions:
     text = title + overview + stat + skills + mentions + signoff
     return text
 
-def honMention(players, stats):
+def honMentions(players, stats):
     string = ""
-    for p in players:
-        for s in stats:
-            string += f"{p} for their {s}\n"
+    for p, s in zip(players, stats):
+        string += f"{p} for their {s}\n"
     return string

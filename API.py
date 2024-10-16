@@ -1,85 +1,173 @@
 from flask import Flask, request, render_template
-from reportGenerator import generate_text_report, honMention
+from reportGenerator import generate_text_report, honMentions
 from sessionPlanGenerator import generate_session_plan_text
+text = ""
+
 
 app = Flask(__name__)
+match_data = {}
+session_data = {}
 goodPlayers = []
 goodStats = []
+
 
 @app.route('/')
 def getLandingPage():
     return render_template("index.html")
 
-@app.route('/generate/cricket/match_report', methods=['POST', 'GET'])
-def generate_report():
+@app.route('/generate/cricket/match_report/main-details', methods=['POST', 'GET'])
+def main_details():
+    global match_data
     if request.method == "POST":
-        clubs = request.form['club']
-        team = request.form['team']
-        opposition = request.form['opposition']
-        venue = request.form.get('venue')
-        victor = request.form.get('victor')
-        endState = request.form.get('endState')
-        margin = request.form.get('margin')
-        date = request.form.get('date')
-        book = request.form.get('book')
-        toss_details = request.form.get('toss_details')
-        first_innings = request.form.get('first_innings')
-        second_innings = request.form.get('second_innings')
-        bBatter = request.form.get('bBatter')
-        batStats = request.form.get('batStats')
-        bBowler = request.form.get('bBowler')
-        bowlStats = request.form.get('bowlStats')
-        mCatches = request.form.get('mCatches')
-        catchStats = request.form.get('catchStats')
-        mRunouts = request.form.get('mRunouts')
-        nRunouts = request.form.get('nRunouts')
-        bestPlayer = request.form.get('bestPlayer')
-        bestStats = request.form.get('bestStats')
-        honMentions = request.form.get('honMentions')
-        goodPlayer = request.form.get('goodPlayers')
-        goodPlayers.append(goodPlayer)
-        goodStat = request.form.get('goodStats')
-        goodStats.append(goodStat)
-        name = request.form.get('name')
-        position = request.form.get('position')
+        match_data.update(request.form)
+    print("Input:", match_data)
+    return render_template("mainDetails.html")
 
-        goodBatSkills = request.form.get('goodBatSkills')
-        whyGoodBat = request.form.get('whyGoodBat')
-        goodBowlSkills = request.form.get('goodBowlSkills')
-        whyGoodBowl = request.form.get('whyGoodBowl')
-        goodFieldSkills = request.form.get('goodFieldSkills')
-        whyGoodField = request.form.get('whyGoodField')
-        badBatSkills = request.form.get('badBatSkills')
-        whyBadBat = request.form.get('whyBadBat')
-        badBowlSkills = request.form.get('badBowlSkills')
-        whyBadBowl = request.form.get('whyBadBowl')
-        badFieldSkills = request.form.get('badFieldSkills')
-        whyBadField = request.form.get('whyBadField')
-        
-    
-    
-    return render_template("reportGen.html")
+@app.route('/generate/cricket/match_report/match-overview', methods=['POST', 'GET'])
+def match_overview():
+    global match_data
+    if request.method == "POST":
+        match_data.update(request.form)
+    print("Input: ", match_data)
+    return render_template("matchOverview.html")
+
+@app.route('/generate/cricket/match_report/stats', methods=['POST', 'GET'])
+def matchStats():
+    global match_data
+    if request.method == "POST":
+        match_data.update(request.form)
+    print("Input:", match_data)
+    return render_template("matchStats.html")
+
+@app.route('/generate/cricket/match_report/skill-breakdown', methods=['POST', 'GET'])
+def skillBreakdown():
+    global match_data
+    if request.method == "POST":
+        match_data.update(request.form)
+    print("Input:", match_data)
+    return render_template("skillBreakdown.html")
+
+@app.route('/generate/cricket/match_report/mentions', methods=['POST', 'GET'])
+def honMention():
+    global match_data, goodPlayers, goodStats
+    string = ""
+    if request.method == "POST":
+        goodPlayer = request.form.get('goodPlayer')
+        goodStat = request.form.get('goodStat')
+        goodPlayers.append(goodPlayer)
+        goodStats.append(goodStat)
+        string += honMentions(goodPlayers, goodStats)
+
+    match_data.update({'honMentions' : string})
+    print("Input:", match_data)
+    return render_template("honMention.html")
+
+@app.route('/generate/cricket/match_report/signoff', methods=['POST', 'GET'])
+def signoff():
+    global match_data
+    if request.method == "POST":
+        match_data.update(request.form)
+    print("Input:", match_data)
+    return render_template("signoff.html")
 
 @app.route('/generate/cricket/session_planner', methods=['POST', 'GET'])
 def generate_session_planner():
+    global session_data
     if request.method == "POST":
-        age = request.form["age"]
-        cgoals = request.form["cGoals"]
-        pgoals = request.form["pGoals"]
-        date = request.form["date"]
-        venue = request.form["venue"]
-        duration = request.form["duration"]
-        equipment = request.form["equipment"]
-        safety = request.form["safety"]
-        warmup = request.form["warmup"]
-        skills = request.form["skills"]
-        drills = request.form["drills"]
-        games = request.form["games"]
-        cooldown = request.form["cooldown"]
-        eval = request.form["eval"]
+        session_data.update(request.form)
+        return render_template("sessionGen.html")
+    return render_template("sessionGen.html")
+
+@app.route('/output/report', methods=['GET', 'POST'])
+def outputReport():
+    endState = ""
+
+    # Main Details:
+    club = match_data.get('club')
+    team = match_data.get('team')
+    opposition = match_data.get('opposition')
+    venue = match_data.get('venue')
+    victor = match_data.get('victor')
+    endStater = match_data.get('endState')
+    if endStater == "bat":
+        endState = "runs"
+    elif endStater == "bowl":
+        endState = "wickets"
+    margin = match_data.get('margin')
+    date = match_data.get('date')
+    book = match_data.get('book')
+
+    # Match Overview:
+    toss_details = match_data.get('toss_details')
+    first_innings = match_data.get('first_innings')
+    second_innings = match_data.get('second_innings')
+
+    # Stats:
+    bBatter = match_data.get('bBatter')
+    batStats = match_data.get('batStats')
+    bBowler = match_data.get('bBowler')
+    bowlStats = match_data.get('bowlStats')
+    mCatches = match_data.get('mCatches')
+    catchStats = match_data.get('catchStats')
+    mRunouts = match_data.get('mRunouts')
+    nRunouts = match_data.get('nRunouts')
+
+    # Skill Breakdown:
+    goodBatSkills = match_data.get('goodBatSkills')
+    whyGoodBat = match_data.get('whyGoodBat')
+    goodBowlSkills = match_data.get('goodBowlSkills')
+    whyGoodBowl = match_data.get('whyGoodBowl')
+    goodFieldSkills = match_data.get('goodFieldSkills')
+    whyGoodField = match_data.get('whyGoodField')
+
+    # Stats:
+    bestPlayer = match_data.get('bestPlayer')
+    bestStats = match_data.get('bestStats')
+    badBatSkills = match_data.get('badBatSkills')
+    whyBadBat = match_data.get('whyBadBat')
+    badBowlSkills = match_data.get('badBowlSkills')
+    whyBadBowl = match_data.get('whyBadBowl')
+    badFieldSkills = match_data.get('badFieldSkills')
+    whyBadField = match_data.get('whyBadField')
+
+    # Honourable Mentions:
+    honMentions = match_data.get('honMentions')
+
+    # Signoff:
+    name = match_data.get('name')
+    position = match_data.get('position')
+
+    text = generate_text_report(club, team, opposition, venue, victor, margin, endState, date, 
+                                book, toss_details, first_innings, second_innings, bBatter, batStats, 
+                                bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, 
+                                whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, 
+                                whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, 
+                                honMentions, name, position)
+    
+    return render_template("output.html", text=text)
+
+@app.route("/output/session_planner", methods=["POST", "GET"])
+def outputSession():
+    global session_data
+    age = session_data.get("age")
+    cgoals = session_data.get("cgoals")
+    pgoals = session_data.get("pgoals")
+    date = session_data.get("date")
+    venue = session_data.get("venue")
+    duration = session_data.get("duration")
+    equipment = session_data.get("equipment")
+    safety = session_data.get("safety")
+    warmup = session_data.get("warmup")
+    skills = session_data.get("skills")
+    drills = session_data.get("drills")
+    games = session_data.get("games")
+    cooldown = session_data.get("cooldown")
+    eval = session_data.get("eval")
 
     text = generate_session_plan_text(age, cgoals, pgoals, date, venue, duration, equipment, safety, warmup, skills, drills, games, cooldown, eval)
-    return text
+    return render_template("output.html", text=text)
+
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=8000, debug=True)

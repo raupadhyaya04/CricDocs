@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Match Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+
+<body>
+<h1>Cricket Match Report -- Match Overview</h1>
+
+<form action="/generate/cricket/match_report/match-overview" method="post">
+    <label for="toss_details">Describe what happened at the coin toss</label>
+    <textarea id="toss_details" name="toss_details" required></textarea>
+
+    <label for="first_innings">Describe what happened in the first innings</label>
+    <textarea id="first_innings" name="first_innings" required></textarea>
+
+    <label for="second_innings">Describe what happened in the second innings</label>
+    <textarea id="second_innings" name="second_innings" required></textarea>
+
+    <button type="submit">Submit Section</button>
+</form>
+<a href="/generate/cricket/match_report/skill-breakdown">Go to next section</a>
+</body>
+</html>
