@@ -13,7 +13,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }).then(response => {
             if (response.ok) {
                 // Redirect to the next page after successful form submission
-                window.location.href = "/generate/cricket/match_report/match-overview";
+                if (window.location.href == "/generate/cricket/match_report/main-details") {
+                    window.location.href = "/generate/cricket/match_report/match-overview";
+                }
+                else if (window.location.href == "/generate/cricket/match_report/match-overview") {
+                    window.location.href = "/generate/cricket/match_report/skill-breakdown";
+                }
+                else if (window.location.href == "/generate/cricket/match_report/skill-breakdown") {
+                    window.location.href = "/generate/cricket/match_report/stats";
+                }
+                else if (window.location.href == "/generate/cricket/match_report/stats") {
+                    window.location.href = "/generate/cricket/match_report/mentions";
+                }
+                else if (window.location.href == "/generate/cricket/match_report/mentions") {
+                    window.location.href = "/generate/cricket/match_report/signoff";
+                }
+                else if (window.location.href == "/generate/cricket/match_report/signoff") {
+                    window.location.href = "/generate/cricket/output/report";
+                }
+                else if (window.location.href == "/generate/cricket/session_planner") {
+                    window.location.href = "/output/session_planner";
+                }
             } else {
                 alert('There was an error submitting the form. Please try again.');
             }
