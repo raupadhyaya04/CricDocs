@@ -6,7 +6,7 @@ Date: {date}\n
 Coach Outcomes: {cgoals}\n
 Player Outcomes: {pgoals}\n
 Age Group: {age}\n
-Duration: {duration}\n
+Duration: {duration}hrs\n
 Venue: {venue}\n
 Equipment: {equipment}\n
 Safety Considerations: {safety}\n"""
