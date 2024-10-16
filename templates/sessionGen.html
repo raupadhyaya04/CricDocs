@@ -12,7 +12,14 @@
 <h1>Coaching Session Form</h1>
 <form action="/generate/cricket/session_planner" method="POST" id="matchForm">
     <label for="age">What age group are you coaching?</label><br>
-    <input type="text" id="age" name="age" required><br><br>
+    <select id="age" name="age" required>
+        <option value="u11">u11</option>
+        <option value="u13">u13</option>
+        <option value="u15">u15</option>
+        <option value="u17">u17</option>
+        <option value="u19">u19</option>
+    </select>
+<br><br>
 
     <label for="cgoals">What are your expected outcomes, as a coach from this session?</label><br>
     <textarea id="cgoals" name="cgoals" rows="4" cols="50" required></textarea><br><br>
@@ -27,10 +34,10 @@
     <input type="text" id="venue" name="venue" required><br><br>
 
     <label for="duration">How long is this session going on for?</label><br>
-    <input type="text" id="duration" name="duration" required><br><br>
+    <input type="number" id="duration" name="duration" required><br><br>
 
     <label for="equipment">What equipment do you plan to use?</label><br>
-    <input type="text" id="equipment" name="equipment" required><br><br>
+    <textarea type="text" id="equipment" name="equipment" required></textarea><br><br>
 
     <label for="safety">What safety measures have to be considered?</label><br>
     <textarea id="safety" name="safety" rows="4" cols="50" required></textarea><br><br>
