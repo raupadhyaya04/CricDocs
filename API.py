@@ -158,10 +158,12 @@ def outputReport():
         opposition = match_data.get('opposition')
         venue = match_data.get('venue')
         victory = match_data.get('victor')
+        victor = ""
         if victory == "Yes":
             victor = club
         elif victory == "No":
             victor = opposition
+        print(victor)
         endStater = match_data.get('endState')
         if endStater == "bat":
             endState = "runs"
@@ -304,7 +306,7 @@ def download_pdf():
     pdf_buffer = create_pdf(text)
 
     # Send the PDF file as a downloadable file
-    return send_file(pdf_buffer, as_attachment=True, download_name="generated.pdf", mimetype='application/pdf')
+    return send_file(pdf_buffer, as_attachment=True, download_name="CricDoc.pdf", mimetype='application/pdf')
 
 
 
