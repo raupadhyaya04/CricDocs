@@ -1,8 +1,4 @@
 from flask import Flask, request, render_template, send_file, redirect
-from io import BytesIO
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from io import BytesIO
 from reportGenerator import generate_text_report_olderYouth, generate_text_report_youngerYouth, honMentions
 from sessionPlanGenerator import generate_session_plan_text
 from creating_pdf import create_pdf

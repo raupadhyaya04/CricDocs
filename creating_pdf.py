@@ -1,3 +1,6 @@
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 def create_pdf(content):
     # Create a BytesIO object to hold the PDF in memory
     pdf_buffer = BytesIO()
