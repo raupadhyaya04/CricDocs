@@ -14,7 +14,7 @@ First Innings:
 In the first innings, {first_innings}.
 
 Second Innings:
-In the second innnings, {second_innings}.\n
+In the second innings, {second_innings}.\n
 """
     if mCatches == "" and mRunouts == "":
         stat = f"""Stats:

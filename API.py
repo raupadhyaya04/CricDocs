@@ -160,7 +160,7 @@ def outputReport():
         victory = match_data.get('victor')
         if victory == "Yes":
             victor = club
-        else:
+        elif victory == "No":
             victor = opposition
         endStater = match_data.get('endState')
         if endStater == "bat":
