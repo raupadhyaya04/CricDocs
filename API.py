@@ -146,6 +146,7 @@ def generate_session_planner():
 
 @app.route('/output/report', methods=['GET', 'POST'])
 def outputReport():
+    global match_data
     endState = ""
     global text
 
