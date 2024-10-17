@@ -20,6 +20,9 @@ goodStats = []
 
 @app.route('/')
 def getLandingPage():
+    global match_data, session_data
+    match_data.clear()
+    session_data.clear()
     return render_template("index.html")
 
 @app.route('/generate/cricket/match_report/main-details', methods=['POST', 'GET'])
