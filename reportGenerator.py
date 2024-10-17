@@ -81,7 +81,7 @@ Why it's important to improve these skills to a better standard and suggestions 
 {whyBadField}
 \n
 """
-    if honMentions == "":
+    if (honMentions == ""):
         mentions = f"""Player of the match: {bestPlayer} for their {bestStats}\n
 """
     else:
@@ -100,5 +100,6 @@ Honourable mentions:
 def honMentions(players, stats):
     string = ""
     for p, s in zip(players, stats):
-        string += f"{p} for their {s}\n"
+        if (p and s) != "":
+            string += f"{p} for their {s}\n"
     return string
