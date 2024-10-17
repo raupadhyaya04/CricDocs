@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Match Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+    <script src="{{ url_for('static', filename='/js/form-handler.js') }}" defer></script>
+</head>
+
+<body>
+<h1>Cricket Match Report -- Skill Breakdown</h1>
+<form action="/generate/cricket/match_report/skill-breakdown" method="post" id="matchForm">
+    <label for="goodSkills">What skills were well implemented by the team?</label>
+    <textarea id="goodSkills" name="goodSkills" required></textarea>
+
+    <label for="whyGoodSkills">Why was it good that these skills were done well?</label>
+    <textarea id="whyGoodSkills" name="whyGoodSkills" required></textarea>
+
+    <label for="badSkills">What skills could be improved upon by the team?</label>
+    <textarea id="badSkills" name="badSkills" required></textarea>
+
+    <label for="whyBadSkills">Why is it important to work on these skills?</label>
+    <textarea id="whyBadSkills" name="whyBadSkills" required></textarea>
+
+    <button type="submit">Submit Section</button>
+</form>
+</body>
+</html>

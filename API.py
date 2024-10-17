@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from reportGenerator import generate_text_report, honMentions
+from reportGenerator import generate_text_report_olderYouth, generate_text_report_youngerYouth, honMentions
 from sessionPlanGenerator import generate_session_plan_text
 text = ""
 
@@ -45,8 +45,9 @@ def skillBreakdown():
     if request.method == "POST":
         match_data.update(request.form)
     print("Input:", match_data)
-    return render_template("skillBreakdown.html")
-
+    if match_data['team'] == "u19" or match_data['team'] == "u17":
+        return render_template("skillBreakdown.html")
+    return render_template("skillBreakdownYounger.html")
 @app.route('/generate/cricket/match_report/mentions', methods=['POST', 'GET'])
 def honMention():
     global match_data, goodPlayers, goodStats
@@ -81,70 +82,127 @@ def generate_session_planner():
 @app.route('/output/report', methods=['GET', 'POST'])
 def outputReport():
     endState = ""
+    text = ""
 
-    # Main Details:
-    club = match_data.get('club')
-    gender = match_data.get('gender')
-    team = match_data.get('team')
-    opposition = match_data.get('opposition')
-    venue = match_data.get('venue')
-    victor = match_data.get('victor')
-    endStater = match_data.get('endState')
-    if endStater == "bat":
-        endState = "runs"
-    elif endStater == "bowl":
-        endState = "wickets"
-    margin = match_data.get('margin')
-    date = match_data.get('date')
-    book = match_data.get('book')
+    if (match_data["team"] == "u17" or match_data["team"] == "u19"):
 
-    # Match Overview:
-    toss_details = match_data.get('toss_details')
-    first_innings = match_data.get('first_innings')
-    second_innings = match_data.get('second_innings')
+        # Main Details:
+        club = match_data.get('club')
+        gender = match_data.get('gender')
+        team = match_data.get('team')
+        opposition = match_data.get('opposition')
+        venue = match_data.get('venue')
+        victor = match_data.get('victor')
+        endStater = match_data.get('endState')
+        if endStater == "bat":
+            endState = "runs"
+        elif endStater == "bowl":
+            endState = "wickets"
+        margin = match_data.get('margin')
+        date = match_data.get('date')
+        book = match_data.get('book')
 
-    # Stats:
-    bBatter = match_data.get('bBatter')
-    batStats = match_data.get('batStats')
-    bBowler = match_data.get('bBowler')
-    bowlStats = match_data.get('bowlStats')
-    mCatches = match_data.get('mCatches')
-    catchStats = match_data.get('catchStats')
-    mRunouts = match_data.get('mRunouts')
-    nRunouts = match_data.get('nRunouts')
+        # Match Overview:
+        toss_details = match_data.get('toss_details')
+        first_innings = match_data.get('first_innings')
+        second_innings = match_data.get('second_innings')
 
-    # Skill Breakdown:
-    goodBatSkills = match_data.get('goodBatSkills')
-    whyGoodBat = match_data.get('whyGoodBat')
-    goodBowlSkills = match_data.get('goodBowlSkills')
-    whyGoodBowl = match_data.get('whyGoodBowl')
-    goodFieldSkills = match_data.get('goodFieldSkills')
-    whyGoodField = match_data.get('whyGoodField')
+        # Stats:
+        bBatter = match_data.get('bBatter')
+        batStats = match_data.get('batStats')
+        bBowler = match_data.get('bBowler')
+        bowlStats = match_data.get('bowlStats')
+        mCatches = match_data.get('mCatches')
+        catchStats = match_data.get('catchStats')
+        mRunouts = match_data.get('mRunouts')
+        nRunouts = match_data.get('nRunouts')
 
-    # Stats:
-    bestPlayer = match_data.get('bestPlayer')
-    bestStats = match_data.get('bestStats')
-    badBatSkills = match_data.get('badBatSkills')
-    whyBadBat = match_data.get('whyBadBat')
-    badBowlSkills = match_data.get('badBowlSkills')
-    whyBadBowl = match_data.get('whyBadBowl')
-    badFieldSkills = match_data.get('badFieldSkills')
-    whyBadField = match_data.get('whyBadField')
+        # Skill Breakdown:
+        goodBatSkills = match_data.get('goodBatSkills')
+        whyGoodBat = match_data.get('whyGoodBat')
+        goodBowlSkills = match_data.get('goodBowlSkills')
+        whyGoodBowl = match_data.get('whyGoodBowl')
+        goodFieldSkills = match_data.get('goodFieldSkills')
+        whyGoodField = match_data.get('whyGoodField')
 
-    # Honourable Mentions:
-    honMentions = match_data.get('honMentions')
+        # Stats:
+        bestPlayer = match_data.get('bestPlayer')
+        bestStats = match_data.get('bestStats')
+        badBatSkills = match_data.get('badBatSkills')
+        whyBadBat = match_data.get('whyBadBat')
+        badBowlSkills = match_data.get('badBowlSkills')
+        whyBadBowl = match_data.get('whyBadBowl')
+        badFieldSkills = match_data.get('badFieldSkills')
+        whyBadField = match_data.get('whyBadField')
 
-    # Signoff:
-    name = match_data.get('name')
-    position = match_data.get('position')
+        # Honourable Mentions:
+        honMentions = match_data.get('honMentions')
 
-    text = generate_text_report(club, gender, team, opposition, venue, victor, margin, endState, date, 
-                                book, toss_details, first_innings, second_innings, bBatter, batStats, 
-                                bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, 
-                                whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, 
-                                whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, 
-                                honMentions, name, position)
-    
+        # Signoff:
+        name = match_data.get('name')
+        position = match_data.get('position')
+
+        text = generate_text_report_olderYouth(club, gender, team, opposition, venue, victor, margin, endState, date, 
+                                    book, toss_details, first_innings, second_innings, bBatter, batStats, 
+                                    bBowler, bowlStats, mCatches, catchStats, mRunouts, nRunouts, goodBatSkills, 
+                                    whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, 
+                                    whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, 
+                                    honMentions, name, position)
+        
+    elif (match_data["team"] == "u11" or match_data["team"] == "u13" or match_data['team'] == "u15"):
+        # Main Details:
+        club = match_data.get('club')
+        gender = match_data.get('gender')
+        team = match_data.get('team')
+        opposition = match_data.get('opposition')
+        venue = match_data.get('venue')
+        victor = match_data.get('victor')
+        endStater = match_data.get('endState')
+        if endStater == "bat":
+            endState = "runs"
+        elif endStater == "bowl":
+            endState = "wickets"
+        margin = match_data.get('margin')
+        date = match_data.get('date')
+        book = match_data.get('book')
+
+        # Match Overview:
+        toss_details = match_data.get('toss_details')
+        first_innings = match_data.get('first_innings')
+        second_innings = match_data.get('second_innings')
+
+        # Stats:
+        bBatter = match_data.get('bBatter')
+        batStats = match_data.get('batStats')
+        bBowler = match_data.get('bBowler')
+        bowlStats = match_data.get('bowlStats')
+        mCatches = match_data.get('mCatches')
+        catchStats = match_data.get('catchStats')
+        mRunouts = match_data.get('mRunouts')
+        nRunouts = match_data.get('nRunouts')
+
+        # Skill Breakdown:
+        goodSkills = match_data.get('goodSkills')
+        whyGoodSkills = match_data.get('whyGoodSkills')
+        badSkills = match_data.get('badSkills')
+        whyBadSkills = match_data.get('whyBadSkills')
+
+        # Stats:
+        bestPlayer = match_data.get('bestPlayer')
+        bestStats = match_data.get('bestStats')
+
+        # Honourable Mentions:
+        honMentions = match_data.get('honMentions')
+
+        # Signoff:
+        name = match_data.get('name')
+        position = match_data.get('position')
+
+        text = generate_text_report_youngerYouth(club, gender, team, opposition, venue, victor, margin, endState, date, book, 
+                                                 toss_details, first_innings, second_innings, mCatches, mRunouts, bBatter, bBowler, 
+                                                 batStats, bowlStats, catchStats, nRunouts, goodSkills, whyGoodSkills, badSkills, 
+                                                 whyBadSkills, bestPlayer, bestStats, honMentions, name, position)
+
     return render_template("output.html", text=text)
 
 @app.route("/output/session_planner", methods=["POST", "GET"])
