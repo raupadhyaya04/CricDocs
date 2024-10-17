@@ -109,7 +109,7 @@ def skillBreakdown():
     if request.method == "POST":
         match_data.update(request.form)
     print("Input:", match_data)
-    if match_data['team'] == "u19" or match_data['team'] == "u17":
+    if match_data.get("team") == "u19" or match_data.get("team") == "u17":
         return render_template("skillBreakdown.html")
     return render_template("skillBreakdownYounger.html")
 
