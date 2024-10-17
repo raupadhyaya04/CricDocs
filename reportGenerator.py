@@ -115,18 +115,18 @@ In the first innings, {first_innings}.
 Second Innings:
 In the second innnings, {second_innings}.\n
 """
-    if mCatches == "" and mRunouts == "":
+    if (mCatches == "" or mCatches == None) and (mRunouts == "" or mRunouts == None):
         stat = f"""Stats:
 Best Batting: {bBatter}, {batStats} runs
 Best Bowling: {bBowler}, {bowlStats}\n
 """
-    elif mRunouts == "":
+    elif (mRunouts == "" or mRunouts == None):
         stat = f"""Stats:
 Best Batting: {bBatter}, {batStats} runs
 Best Bowling: {bBowler}, {bowlStats}
 Most Catches: {mCatches}, {catchStats} catches\n
 """
-    elif mCatches == "":
+    elif (mCatches == "" or mCatches == None):
         stat = f"""Stats:
 Best Batting: {bBatter}, {batStats} runs
 Best Bowling: {bBowler}, {bowlStats}
@@ -139,7 +139,7 @@ Best Bowling: {bBowler}, {bowlStats}
 Most Catches: {mCatches}, {catchStats} catches
 Most runouts: {mRunouts}, {nRunouts} runouts\n
     """
-        
+    
     skills = f"""
 Skill Breakdown:
 What went well:
