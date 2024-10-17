@@ -24,7 +24,7 @@ def create_pdf(content):
     width, height = letter
 
     # Define text settings
-    pdf.setFont("Arial", 12)
+    pdf.setFont("Helvetica", 12)
     margin = 50
     line_height = 14
     max_width = width - 2 * margin
@@ -48,7 +48,7 @@ def create_pdf(content):
             if y_position < margin + line_height:
                 pdf.showPage()  # Start a new page when we run out of space
                 y_position = height - margin
-                pdf.setFont("Arial", 12)  # Reset font settings after new page
+                pdf.setFont("Helvetica", 12)  # Reset font settings after new page
 
             # Fit as much text as possible within the page width
             text_chunk = paragraph[:95]  # Adjust to fit your desired text width
