@@ -157,7 +157,11 @@ def outputReport():
         team = match_data.get('team')
         opposition = match_data.get('opposition')
         venue = match_data.get('venue')
-        victor = match_data.get('victor')
+        victory = match_data.get('victor')
+        if victory == "Yes":
+            victor = club
+        else:
+            victor = opposition
         endStater = match_data.get('endState')
         if endStater == "bat":
             endState = "runs"
