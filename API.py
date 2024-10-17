@@ -151,7 +151,7 @@ def outputReport():
     endState = ""
     victor = ""
 
-    if (match_data["team"] == "u17" or match_data["team"] == "u19"):
+    if (match_data.get("team") == "u17" or match_data.get("team") == "u19"):
 
         # Main Details:
         club = match_data.get('club')
