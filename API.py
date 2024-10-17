@@ -296,7 +296,7 @@ def outputSession():
     eval = session_data.get("eval")
 
     text = generate_session_plan_text(age, cgoals, pgoals, date, venue, duration, equipment, safety, warmup, skills, drills, games, cooldown, eval)
-    return render_template("output.html")
+    return render_template("output.html", text=text)
 
 @app.route('/download-pdf')
 def download_pdf():
