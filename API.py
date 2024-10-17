@@ -147,8 +147,9 @@ def generate_session_planner():
 @app.route('/output/report', methods=['GET', 'POST'])
 def outputReport():
     global match_data
-    endState = ""
     global text
+    endState = ""
+    victor = ""
 
     if (match_data["team"] == "u17" or match_data["team"] == "u19"):
 
@@ -159,12 +160,10 @@ def outputReport():
         opposition = match_data.get('opposition')
         venue = match_data.get('venue')
         victory = match_data.get('victor')
-        victor = ""
         if victory == "Yes":
             victor = club
         elif victory == "No":
             victor = opposition
-        print(victor)
         endStater = match_data.get('endState')
         if endStater == "bat":
             endState = "runs"
