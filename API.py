@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template, send_file, redirect
 from io import BytesIO
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -254,7 +254,9 @@ def download_pdf():
     # Send the PDF file as a downloadable file
     return send_file(pdf_buffer, as_attachment=True, download_name="CricDoc.pdf", mimetype='application/pdf')
 
-
+@app.route("generate/cricket/output/report")
+def redirect_report():
+    return redirect("/output/report", code=302)
 
 
 if __name__ == '__main__':
