@@ -112,6 +112,7 @@ def skillBreakdown():
     if match_data['team'] == "u19" or match_data['team'] == "u17":
         return render_template("skillBreakdown.html")
     return render_template("skillBreakdownYounger.html")
+
 @app.route('/generate/cricket/match_report/mentions', methods=['POST', 'GET'])
 def honMention():
     global match_data, goodPlayers, goodStats
@@ -189,15 +190,16 @@ def outputReport():
         goodFieldSkills = match_data.get('goodFieldSkills')
         whyGoodField = match_data.get('whyGoodField')
 
-        # Stats:
-        bestPlayer = match_data.get('bestPlayer')
-        bestStats = match_data.get('bestStats')
         badBatSkills = match_data.get('badBatSkills')
         whyBadBat = match_data.get('whyBadBat')
         badBowlSkills = match_data.get('badBowlSkills')
         whyBadBowl = match_data.get('whyBadBowl')
         badFieldSkills = match_data.get('badFieldSkills')
         whyBadField = match_data.get('whyBadField')
+
+        # Stats:
+        bestPlayer = match_data.get('bestPlayer')
+        bestStats = match_data.get('bestStats')
 
         # Honourable Mentions:
         honMentions = match_data.get('honMentions')
