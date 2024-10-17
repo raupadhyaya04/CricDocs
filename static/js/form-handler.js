@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.href = "/generate/cricket/match_report/stats";
                 } else if (currentPath === "/generate/cricket/match_report/stats") {
                     window.location.href = "/generate/cricket/match_report/mentions";
-                } else if (currentPath === "/generate/cricket/match_report/mentions") {
-                    window.location.href = "/generate/cricket/match_report/signoff";
                 } else if (currentPath === "/generate/cricket/match_report/signoff") {
                     window.location.href = "/output/report";
                 } else if (currentPath === "/generate/cricket/session_planner") {
