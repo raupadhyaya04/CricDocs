@@ -221,7 +221,7 @@ def outputReport():
                                     whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, 
                                     honMentions, name, position)
         
-    elif (match_data["team"] == "u11" or match_data["team"] == "u13" or match_data['team'] == "u15"):
+    elif (match_data.get("team") == "u11" or match_data.get("team") == "u13" or match_data.get('team') == "u15"):
         # Main Details:
         club = match_data.get('club')
         gender = match_data.get('gender')
