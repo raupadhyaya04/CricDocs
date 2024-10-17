@@ -254,7 +254,7 @@ def download_pdf():
     # Send the PDF file as a downloadable file
     return send_file(pdf_buffer, as_attachment=True, download_name="CricDoc.pdf", mimetype='application/pdf')
 
-@app.route("generate/cricket/output/report")
+@app.route("/generate/cricket/output/report")
 def redirect_report():
     return redirect("/output/report", code=302)
 
