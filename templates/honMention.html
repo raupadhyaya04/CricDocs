@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cricket Match Report</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
-    <script src="{{ url_for('static', filename='/js/form-handler.js') }}" defer></script>
 </head>
 
 <body>
 <h1>Cricket Match Report</h1>
-<form action="/generate/cricket/match_report/mentions" method="post" id="matchForm">
+<form action="/generate/cricket/match_report/mentions" method="post">
     <label for="goodPlayer">Who gets an honourable mention?</label>
     <textarea id="goodPlayer" name="goodPlayer"></textarea>
 
