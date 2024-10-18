@@ -36,6 +36,6 @@ button, a {
     border-radius: 4px;
     cursor: pointer;
 }
-button:hover {
+button:hover, a:hover {
     background-color: #45a049;
 }

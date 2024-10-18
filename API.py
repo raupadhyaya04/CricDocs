@@ -1,94 +1,112 @@
-from flask import Flask, request, render_template, send_file, redirect
+from flask import Flask, request, render_template, send_file, redirect, session
 from reportGenerator import generate_text_report_olderYouth, generate_text_report_youngerYouth, honMentions
 from sessionPlanGenerator import generate_session_plan_text
 from creating_pdf import create_pdf
-
-text = ""
+import os
+from configurer import configure
 
 
 app = Flask(__name__)
 
-match_data = {}
-session_data = {}
-goodPlayers = []
-goodStats = []
+app.secret_key = os.getenv("secret_key")
 
+
+def main():
+    configure()
+main()
 
 @app.route('/')
 def getLandingPage():
-    global match_data, session_data
-    match_data.clear()
-    session_data.clear()
+    if 'match_data' not in session:
+        session['match_data'] = {}
+    if 'session_data' not in session:
+        session['session_data'] = {}
     return render_template("index.html")
 
 @app.route('/generate/cricket/match_report/main-details', methods=['POST', 'GET'])
 def main_details():
-    global match_data
     if request.method == "POST":
-        match_data.update(request.form)
-    print("Input:", match_data)
+        match_data = session["match_data"]
+        mainDetails = request.form.to_dict()
+        match_data.update(mainDetails)
+        session['match_data'] = match_data
+    print("Input:", session['match_data'])
     return render_template("mainDetails.html")
 
 @app.route('/generate/cricket/match_report/match-overview', methods=['POST', 'GET'])
 def match_overview():
-    global match_data
     if request.method == "POST":
-        match_data.update(request.form)
-    print("Input: ", match_data)
+        match_data = session["match_data"]
+        matchOverview = request.form.to_dict()
+        match_data.update(matchOverview)
+        session['match_data'] = match_data
+    print("Input: ", session['match_data'])
     return render_template("matchOverview.html")
 
 @app.route('/generate/cricket/match_report/stats', methods=['POST', 'GET'])
 def matchStats():
-    global match_data
     if request.method == "POST":
-        match_data.update(request.form)
-    print("Input:", match_data)
+        match_data = session['match_data']
+        matchStats = request.form.to_dict()
+        match_data.update(matchStats)
+        session['match_data'] = match_data
+    print("Input:", session['match_data'])
     return render_template("matchStats.html")
 
 @app.route('/generate/cricket/match_report/skill-breakdown', methods=['POST', 'GET'])
 def skillBreakdown():
-    global match_data
     if request.method == "POST":
-        match_data.update(request.form)
-    print("Input:", match_data)
-    if match_data.get("team") == "u19" or match_data.get("team") == "u17":
+        match_data = session['match_data']
+        skillBdown = request.form.to_dict()
+        match_data.update(skillBdown)
+        session['match_data'] = match_data
+    print("Input:", session['match_data'])
+    if session['match_data'].get("team") == "u19" or session['match_data'].get("team") == "u17":
         return render_template("skillBreakdown.html")
     return render_template("skillBreakdownYounger.html")
 
 @app.route('/generate/cricket/match_report/mentions', methods=['POST', 'GET'])
 def honMention():
-    global match_data, goodPlayers, goodStats
+    goodPlayers = []
+    goodStats = []
     string = ""
     if request.method == "POST":
+        match_data = session["match_data"]
         goodPlayer = request.form.get('goodPlayer')
         goodStat = request.form.get('goodStat')
         goodPlayers.append(goodPlayer)
         goodStats.append(goodStat)
         string += honMentions(goodPlayers, goodStats)
-
-    match_data.update({'honMentions' : string})
-    print("Input:", match_data)
+        match_data.update({'honMentions' : string})
+        session["match_data"] = match_data
+    print("Input:", session['match_data'])
     return render_template("honMention.html")
 
 @app.route('/generate/cricket/match_report/signoff', methods=['POST', 'GET'])
 def signoff():
-    global match_data
     if request.method == "POST":
-        match_data.update(request.form)
-    print("Input:", match_data)
+        match_data = session["match_data"]
+        signingOff = request.form.to_dict()
+        match_data.update(signingOff)
+        session["match_data"] = match_data
+    print("Input:", session['match_data'])
     return render_template("signoff.html")
 
 @app.route('/generate/cricket/session_planner', methods=['POST', 'GET'])
 def generate_session_planner():
-    global session_data
     if request.method == "POST":
-        session_data.update(request.form)
+        session_data = session['session_data']
+        sesh = request.form.to_dict()
+        session_data.update(sesh)
+        session['session_data'] = session_data
+
         return render_template("sessionGen.html")
     return render_template("sessionGen.html")
 
 @app.route('/output/report', methods=['GET', 'POST'])
 def outputReport():
-    global match_data, text
+    match_data = session['match_data']
+    text = ""
     endState = ""
     victor = ""
 
@@ -161,6 +179,8 @@ def outputReport():
                                     whyGoodBat, goodBowlSkills, whyGoodBowl, goodFieldSkills, whyGoodField, badBatSkills, 
                                     whyBadBat, badBowlSkills, whyBadBowl, badFieldSkills, whyBadField, bestPlayer, bestStats, 
                                     honMentions, name, position)
+        match_data.update({"text":text})
+        session["match_data"] = match_data
         
     else:
         # Main Details:
@@ -219,12 +239,15 @@ def outputReport():
                                                  toss_details, first_innings, second_innings, mCatches, mRunouts, bBatter, bBowler, 
                                                  batStats, bowlStats, catchStats, nRunouts, goodSkills, whyGoodSkills, badSkills, 
                                                  whyBadSkills, bestPlayer, bestStats, honMentions, name, position)
+        match_data.update({"text":text})
+        session["match_data"] = match_data
 
     return render_template("output.html", text=text)
 
 @app.route("/output/session_planner", methods=["POST", "GET"])
 def outputSession():
-    global session_data, text
+    session_data = session['session_data']
+    text = ""
     age = session_data.get("age")
     cgoals = session_data.get("cgoals")
     pgoals = session_data.get("pgoals")
@@ -241,11 +264,20 @@ def outputSession():
     eval = session_data.get("eval")
 
     text = generate_session_plan_text(age, cgoals, pgoals, date, venue, duration, equipment, safety, warmup, skills, drills, games, cooldown, eval)
+    session_data.update({"text":text})
+    session["session_data"] = session_data
     return render_template("output.html", text=text)
 
 @app.route('/download-pdf')
 def download_pdf():
-    global text
+    session_data = session["session_data"]
+    match_data = session["match_data"]
+    text = ""
+
+    if session_data.get("text") == None:
+        text = match_data.get("text")
+    elif match_data.get("text") == None:
+        text = session_data.get("text")
 
     # Create the PDF
     pdf_buffer = create_pdf(text)
@@ -259,4 +291,4 @@ def redirect_report():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
