@@ -81,7 +81,7 @@ Why it's important to improve these skills to a better standard:
 {whyBadField}
 \n
 """
-    if (honMentions == ""):
+    if (honMentions == "" or honMentions == None):
         mentions = f"""Player of the match: {bestPlayer} for their {bestStats}\n
 """
     else:
