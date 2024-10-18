@@ -45,19 +45,19 @@ Most runouts: {mRunouts}, {nRunouts} runouts\n
     skills = f"""
 Skill Breakdown:
 What went well:
-Batting:
+Batting Skills:
 {goodBatSkills}
 
 Why it was good that these skills were done well:
 {whyGoodBat}
 
-Bowling:
+Bowling Skills:
 {goodBowlSkills}
 
 Why it was good that these skills were done well:
 {whyGoodBowl}
 
-Fielding:
+Fielding Skills:
 {goodFieldSkills}
 
 Why it was good that these skills were done well:
