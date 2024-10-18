@@ -34,14 +34,16 @@ Best Bowling: {bBowler}, {bowlStats}
 Most runouts: {mRunouts}, {nRunouts} runouts\n
 """
     else:
-        stat = f"""Stats:
-    Best Batting: {bBatter}, {batStats} runs
-    Best Bowling: {bBowler}, {bowlStats}
-    Most Catches: {mCatches}, {catchStats} catches
-    Most runouts: {mRunouts}, {nRunouts} runouts\n
+        stat = f"""
+Stats:
+Best Batting: {bBatter}, {batStats} runs
+Best Bowling: {bBowler}, {bowlStats}
+Most Catches: {mCatches}, {catchStats} catches
+Most runouts: {mRunouts}, {nRunouts} runouts\n
     """
         
-    skills = f"""Skill Breakdown:
+    skills = f"""
+Skill Breakdown:
 What went well:
 Batting:
 {goodBatSkills}
