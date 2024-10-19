@@ -117,31 +117,6 @@ In the first innings, {first_innings}.
 Second Innings:
 In the second innnings, {second_innings}.\n
 """
-    if (mCatches == "" or mCatches == None) and (mRunouts == "" or mRunouts == None):
-        stat = f"""Stats:
-Best Batting: {bBatter}, {batStats} runs
-Best Bowling: {bBowler}, {bowlStats}\n
-"""
-    elif (mRunouts == "" or mRunouts == None):
-        stat = f"""Stats:
-Best Batting: {bBatter}, {batStats} runs
-Best Bowling: {bBowler}, {bowlStats}
-Most Catches: {mCatches}, {catchStats} catches\n
-"""
-    elif (mCatches == "" or mCatches == None):
-        stat = f"""Stats:
-Best Batting: {bBatter}, {batStats} runs
-Best Bowling: {bBowler}, {bowlStats}
-Most runouts: {mRunouts}, {nRunouts} runouts\n
-"""
-    else:
-        stat = f"""Stats:
-Best Batting: {bBatter}, {batStats} runs
-Best Bowling: {bBowler}, {bowlStats}
-Most Catches: {mCatches}, {catchStats} catches
-Most runouts: {mRunouts}, {nRunouts} runouts\n
-    """
-    
     skills = f"""
 Skill Breakdown:
 What went well:
@@ -157,11 +132,7 @@ Why it's important to improve these skills to a better standard:
 {whyBadSkills}
 \n
 """
-    if (honMentions == "" or honMentions == None):
-        mentions = f"""Player of the match: {bestPlayer} for their {bestStats}\n
-"""
-    else:
-        mentions = f"""Player of the match: {bestPlayer} for their {bestStats}
+    mentions = f"""Player of the match: {bestPlayer} for their {bestStats}
 
 Honourable mentions:
 {honMentions}\n
@@ -170,7 +141,7 @@ Honourable mentions:
 {name},
 {position}"""
 
-    text = title + overview + stat + skills + mentions + signoff
+    text = title + overview + skills + mentions + signoff
     return text
 
 

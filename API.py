@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, redirect, session
+from flask import Flask, request, render_template, send_file, redirect, session, url_for
 from reportGenerator import generate_text_report_olderYouth, generate_text_report_youngerYouth, honMentions
 from sessionPlanGenerator import generate_session_plan_text
 from creating_pdf import create_pdf
@@ -51,6 +51,9 @@ def matchStats():
         match_data.update(matchStats)
         session['match_data'] = match_data
     print("Input:", session['match_data'])
+
+    if session['match_data'].get('team') in ['u13', 'u11']:
+        return redirect(url_for("honMention"))
     return render_template("matchStats.html")
 
 @app.route('/generate/cricket/match_report/skill-breakdown', methods=['POST', 'GET'])
@@ -208,25 +211,11 @@ def outputReport():
         first_innings = match_data.get('first_innings')
         second_innings = match_data.get('second_innings')
 
-        # Stats:
-        bBatter = match_data.get('bBatter')
-        batStats = match_data.get('batStats')
-        bBowler = match_data.get('bBowler')
-        bowlStats = match_data.get('bowlStats')
-        mCatches = match_data.get('mCatches')
-        catchStats = match_data.get('catchStats')
-        mRunouts = match_data.get('mRunouts')
-        nRunouts = match_data.get('nRunouts')
-
         # Skill Breakdown:
         goodSkills = match_data.get('goodSkills')
         whyGoodSkills = match_data.get('whyGoodSkills')
         badSkills = match_data.get('badSkills')
         whyBadSkills = match_data.get('whyBadSkills')
-
-        # Stats:
-        bestPlayer = match_data.get('bestPlayer')
-        bestStats = match_data.get('bestStats')
 
         # Honourable Mentions:
         honMentions = match_data.get('honMentions')
@@ -236,9 +225,8 @@ def outputReport():
         position = match_data.get('position')
 
         text = generate_text_report_youngerYouth(club, gender, team, opposition, venue, victor, margin, endState, date, book, 
-                                                 toss_details, first_innings, second_innings, mCatches, mRunouts, bBatter, bBowler, 
-                                                 batStats, bowlStats, catchStats, nRunouts, goodSkills, whyGoodSkills, badSkills, 
-                                                 whyBadSkills, bestPlayer, bestStats, honMentions, name, position)
+                                                 toss_details, first_innings, second_innings, goodSkills, whyGoodSkills, badSkills, 
+                                                 whyBadSkills, honMentions, name, position)
         match_data.update({"text":text})
         session["match_data"] = match_data
 
@@ -290,7 +278,7 @@ def redirect_report():
     return redirect("/output/report", code=302)
 
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(e):
     return render_template('404.html'), 404
 
 if __name__ == '__main__':
