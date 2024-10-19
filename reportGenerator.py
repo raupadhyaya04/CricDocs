@@ -99,7 +99,7 @@ Honourable mentions:
     text = title + overview + stat + skills + mentions + signoff
     return text
 
-def generate_text_report_youngerYouth(club, gender, team, opposition, venue, victor, margin, endState, date, book, toss_details, first_innings, second_innings, mCatches, mRunouts, bBatter, bBowler, batStats, bowlStats, catchStats, nRunouts, goodSkills, whyGoodSkills, badSkills, whyBadSkills, bestPlayer, bestStats, honMentions, name, position):
+def generate_text_report_youngerYouth(club, gender, team, opposition, venue, victor, margin, endState, date, book, toss_details, first_innings, second_innings, goodSkills, whyGoodSkills, badSkills, whyBadSkills, honMentions, name, position):
     title = f"""
 Match Report — {club} {gender} {team} vs {opposition} ({venue}):
 
@@ -132,9 +132,7 @@ Why it's important to improve these skills to a better standard:
 {whyBadSkills}
 \n
 """
-    mentions = f"""Player of the match: {bestPlayer} for their {bestStats}
-
-Honourable mentions:
+    mentions = f"""Noteworthy Performances:
 {honMentions}\n
 """
     signoff = f"""Best wishes,
