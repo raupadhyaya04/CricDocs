@@ -10,13 +10,13 @@ app = Flask(__name__)
 
 app.secret_key = os.getenv("secret_key")
 
-
 def main():
     configure()
 main()
 
 @app.route('/')
 def getLandingPage():
+    session.clear()
     if 'match_data' not in session:
         session['match_data'] = {}
     if 'session_data' not in session:
