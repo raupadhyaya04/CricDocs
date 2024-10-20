@@ -81,6 +81,17 @@ def skillBreakdown():
         return render_template("skillBreakdown.html", teamSheet = session["match_data"].get("teamSheet"))
     return render_template("skillBreakdownYounger.html")
 
+@app.route('/generate/cricket/match_report/remove-player', methods=['POST'])
+def remove_player():
+    match_data = session["match_data"]
+    teamSheet = match_data.get("teamSheet")
+    player_to_remove = request.form.get('player_to_remove')
+    if player_to_remove in teamSheet:
+        teamSheet.remove(player_to_remove)
+    session["match_data"] = match_data
+    return redirect(url_for('getTeamSheet'))
+
+
 @app.route('/generate/cricket/match_report/mentions', methods=['POST', 'GET'])
 def honMention():
     goodPlayers = []
@@ -93,6 +104,8 @@ def honMention():
         goodPlayers.append(goodPlayer)
         goodStats.append(goodStat)
         string += honMentions(goodPlayers, goodStats)
+        if string == None or string == "":
+            string = "Nothing of note, everyone did well in their own regards"
         match_data.update({'honMentions' : string})
         session["match_data"] = match_data
     print("Input:", session['match_data'])

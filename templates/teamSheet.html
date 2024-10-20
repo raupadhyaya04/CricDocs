@@ -17,10 +17,16 @@
     <a href="/generate/cricket/match_report/main-details">Go to next section</a>
 </form>
 <h4>Team Sheet</h4>
-{% for player in teamSheet %}
 <ul>
-{{ player }}
+    {% for player in teamSheet %}
+    <li>
+        {{ player }}
+        <form action="/generate/cricket/match_report/remove-player" method="post" style="display:inline;">
+            <input type="hidden" name="player_to_remove" value="{{ player }}">
+            <button class="remover" type="submit">Remove</button>
+        </form>
+    </li>
+    {% endfor %}
 </ul>
-{% endfor %}
 </body>
 </html>
