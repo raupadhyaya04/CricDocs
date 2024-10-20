@@ -11,7 +11,7 @@
 <h1>Cricket Match Report</h1>
 <form action="/generate/cricket/match_report/mentions" method="post">
     <label for="goodPlayer">Who did really well in the field today?</label>
-    <select name="goodPlayer" id="goodPlayer"></select>
+    <select name="goodPlayer" id="goodPlayer">
         {% for player in teamSheet %}
             <option value="{{ player }}">{{ player }}</option>
         {% endfor %}

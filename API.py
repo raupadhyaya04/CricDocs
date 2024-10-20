@@ -25,14 +25,16 @@ def getLandingPage():
 
 @app.route('/generate/cricket/match_report/team-sheet', methods=['POST', 'GET'])
 def getTeamSheet():
+    match_data = session["match_data"]
+    teamSheet = match_data.get('teamSheet', [])
     if request.method == "POST":
-        match_data = session["match_data"]
-        teamSheet = []
         player = request.form.get('player')
-        teamSheet.append(player)
-    match_data.update({'teamSheet':teamSheet})
+        if player:
+            teamSheet.append(player)
+    match_data['teamSheet'] = teamSheet
+    session["match_data"] = match_data
     print("Input:", session['match_data'])
-    return render_template("teamSheet.html")
+    return render_template("teamSheet.html", teamSheet = teamSheet)
 
 @app.route('/generate/cricket/match_report/main-details', methods=['POST', 'GET'])
 def main_details():
@@ -65,7 +67,7 @@ def matchStats():
 
     if session['match_data'].get('team') in ['u13', 'u11']:
         return redirect(url_for("honMention"))
-    return render_template("matchStats.html")
+    return render_template("matchStats.html", teamSheet = session["match_data"].get("teamSheet"))
 
 @app.route('/generate/cricket/match_report/skill-breakdown', methods=['POST', 'GET'])
 def skillBreakdown():
@@ -76,7 +78,7 @@ def skillBreakdown():
         session['match_data'] = match_data
     print("Input:", session['match_data'])
     if session['match_data'].get("team") == "u19" or session['match_data'].get("team") == "u17":
-        return render_template("skillBreakdown.html")
+        return render_template("skillBreakdown.html", teamSheet = session["match_data"].get("teamSheet"))
     return render_template("skillBreakdownYounger.html")
 
 @app.route('/generate/cricket/match_report/mentions', methods=['POST', 'GET'])
@@ -94,7 +96,7 @@ def honMention():
         match_data.update({'honMentions' : string})
         session["match_data"] = match_data
     print("Input:", session['match_data'])
-    return render_template("honMention.html")
+    return render_template("mentions.html", teamSheet = session["match_data"].get("teamSheet"))
 
 @app.route('/generate/cricket/match_report/signoff', methods=['POST', 'GET'])
 def signoff():
@@ -180,7 +182,7 @@ def outputReport():
         bestPlayer = match_data.get('bestPlayer')
         bestStats = match_data.get('bestStats')
 
-        # Honourable Mentions:
+        # Noteworthy Performances:
         honMentions = match_data.get('honMentions')
 
         # Signoff:

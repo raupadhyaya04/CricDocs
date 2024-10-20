@@ -10,11 +10,17 @@
 <body>
 <h1>Cricket Match Report</h1>
 <form action="/generate/cricket/match_report/team-sheet" method="post">
-    <label for="goodPlayer">Who is playing in the team? </form>/label>
-    <textarea id="goodPlayer" name="player"></textarea>
+    <label for="goodPlayer">Who is playing in the team? </label>
+    <input type="text" id="player" name="player"></input>
 
     <button type="submit">Submit Player</button>
     <a href="/generate/cricket/match_report/main-details">Go to next section</a>
 </form>
+<h4>Team Sheet</h4>
+{% for player in teamSheet %}
+<ul>
+{{ player }}
+</ul>
+{% endfor %}
 </body>
 </html>
