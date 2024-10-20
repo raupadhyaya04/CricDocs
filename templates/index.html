@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css', v='1.0') }}">
-    </head>
-    <body>
-        <header>
-            <h1 class="title">Welcome to CricDocs!</h1>
-            <h2> We help coaches spend more time on the fun stuff of coaching</h2>
-            <nav>
-                <a href="/generate/cricket/match_report/team-sheet">Match Report generator</a>
-                <a href="/generate/cricket/session_planner">Session Plan generator</a>
-            </nav>
-        </header>
-        <main>
-            <p></p>
-        </main>
-        <footer>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CricDocs - Tools to help coaches spend more time on coaching and less on paperwork.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', v='1.0') }}">
+    <title>CricDocs - Simplifying Coaching Paperwork</title>
+</head>
+<body>
+    <header>
+        <h1 class="title">Welcome to CricDocs!</h1>
+        <h2>We help coaches spend more time on the fun part of coaching</h2>
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="/generate/cricket/match_report/team-sheet">Match Report Generator</a></li>
+                <li><a href="/generate/cricket/session_planner">Session Plan Generator</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        </footer>
-    </body>
+    <main>
+        <section>
+            <p>Your one-stop platform for generating match reports, planning sessions, and reducing paperwork for coaches.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CricDocs. All rights reserved.</p>
+    </footer>
+</body>
 </html>

@@ -108,7 +108,7 @@ def honMention():
         goodPlayers.append(goodPlayer)
         goodStats.append(goodStat)
         string += honMentions(goodPlayers, goodStats)
-        if string == None or string == "":
+        if string == None or string.isalpha() == False:
             string = "Nothing of note, everyone did well in their own regards"
         match_data.update({'honMentions' : string})
         session["match_data"] = match_data
