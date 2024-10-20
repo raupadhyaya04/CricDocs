@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Match Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+
+<body>
+<h1>Cricket Match Report</h1>
+<form action="/generate/cricket/match_report/team-sheet" method="post">
+    <label for="goodPlayer">Who is playing in the team? </form>/label>
+    <textarea id="goodPlayer" name="player"></textarea>
+
+    <button type="submit">Submit Player</button>
+    <a href="/generate/cricket/match_report/main-details">Go to next section</a>
+</form>
+</body>
+</html>

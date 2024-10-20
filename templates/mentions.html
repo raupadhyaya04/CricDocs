@@ -11,7 +11,11 @@
 <h1>Cricket Match Report</h1>
 <form action="/generate/cricket/match_report/mentions" method="post">
     <label for="goodPlayer">Who did really well in the field today?</label>
-    <textarea id="goodPlayer" name="goodPlayer"></textarea>
+    <select name="goodPlayer" id="goodPlayer"></select>
+        {% for player in teamSheet %}
+            <option value="{{ player }}">{{ player }}</option>
+        {% endfor %}
+    </select>
 
     <label for="goodStats">What part of their game do you think makes them worthy of this?</label>
     <textarea id="goodStat" name="goodStat"></textarea>

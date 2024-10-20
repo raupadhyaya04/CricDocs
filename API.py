@@ -23,6 +23,17 @@ def getLandingPage():
         session['session_data'] = {}
     return render_template("index.html")
 
+@app.route('/generate/cricket/match_report/team-sheet', methods=['POST', 'GET'])
+def getTeamSheet():
+    if request.method == "POST":
+        match_data = session["match_data"]
+        teamSheet = []
+        player = request.form.get('player')
+        teamSheet.append(player)
+    match_data.update({'teamSheet':teamSheet})
+    print("Input:", session['match_data'])
+    return render_template("teamSheet.html")
+
 @app.route('/generate/cricket/match_report/main-details', methods=['POST', 'GET'])
 def main_details():
     if request.method == "POST":

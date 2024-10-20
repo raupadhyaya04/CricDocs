@@ -12,31 +12,51 @@
 <h1>Cricket Match Report -- Match Stats</h1>
 <form action="/generate/cricket/match_report/stats" method="post" id="matchForm">
     <label for="bBatter">Who was the best batter?</label>
-    <input type="text" id="bBatter" name="bBatter" required>
+    <select name="bBatter" id="bBatter" required>
+        {% for player in teamSheet %}
+            <option value="{{ player }}">{{ player }}</option>
+        {% endfor %}
+    </select>
 
     <label for="batStats">How many runs did they score?</label>
     <input type="text" id="batStats" name="batStats" required>
 
     <label for="bBowler">Who was the best bowler?</label>
-    <input type="text" id="bBowler" name="bBowler" required>
+    <select name="bBowler" id="bBowler" required>
+        {% for player in teamSheet %}
+            <option value="{{ player }}">{{ player }}</option>
+        {% endfor %}
+    </select>
 
     <label for="bowlStats">What were their bowling figures?</label>
     <input type="text" id="bowlStats" name="bowlStats" required>
 
     <label for="mCatches">Who took the most catches?</label>
-    <input type="text" id="mCatches" name="mCatches">
+    <select name="mCatches" id="mCatches">
+        {% for player in teamSheet %}
+            <option value="{{ player }}">{{ player }}</option>
+        {% endfor %}
+    </select>
 
     <label for="catchStats">How many catches did they take?</label>
     <input type="text" id="catchStats" name="catchStats">
 
     <label for="mRunouts">Who got the most runouts?</label>
-    <input type="text" id="mRunouts" name="mRunouts">
+    <select name="mRunouts" id="mRunouts">
+        {% for player in teamSheet %}
+            <option value="{{ player }}">{{ player }}</option>
+        {% endfor %}
+    </select>
 
     <label for="nRunouts">How many runouts did they get?</label>
     <input type="text" id="nRunouts" name="nRunouts">
 
     <label for="bestPlayer">Who was the player of the Match?</label>
-    <input type="text" id="bestPlayer" name="bestPlayer">
+    <select name="bestPlayer" id="bestPlayer">
+        {% for player in teamSheet %}
+            <option value="{{ player }}">{{ player }}</option>
+        {% endfor %}
+    </select>
 
     <label for="bestStats">What was their main statistic(s) that stood out?</label>
     <input type="text" id="bestStats" name="bestStats">
