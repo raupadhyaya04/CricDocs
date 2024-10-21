@@ -249,6 +249,8 @@ def outputReport():
 
         # Honourable Mentions:
         honMentions = match_data.get('honMentions')
+        if honMentions == None or honMentions.isalpha() == False:
+            honMentions = "None, everyone did well in their own regard"
 
         # Signoff:
         name = match_data.get('name')
