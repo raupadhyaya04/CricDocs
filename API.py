@@ -29,7 +29,7 @@ def getLandingPage():
     if docType == "1":
         return redirect(url_for("getTeamSheet"))
     elif docType == "2":
-        return redirect(url_for("get_session_planner"))
+        return redirect(url_for("generate_session_planner"))
     elif docType == "3":
         return redirect(url_for("getIncidentReport"))
     return render_template("index.html")
