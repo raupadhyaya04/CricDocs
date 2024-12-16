@@ -18,14 +18,25 @@ def main():
     configure()
 main()
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def getLandingPage():
     session.clear()
     if 'match_data' not in session:
         session['match_data'] = {}
     if 'session_data' not in session:
         session['session_data'] = {}
+    docType = request.form.get('docType')
+    if docType == "1":
+        return redirect(url_for("getTeamSheet"))
+    elif docType == "2":
+        return redirect(url_for("get_session_planner"))
+    elif docType == "3":
+        return redirect(url_for("getIncidentReport"))
     return render_template("index.html")
+
+@app.route('/incident')
+def getIncidentReport():
+    return 0
 
 @app.route('/generate/cricket/match_report/team-sheet', methods=['POST', 'GET'])
 def getTeamSheet():

@@ -12,10 +12,14 @@
         <h1 class="title">Welcome to CricDocs!</h1>
         <h2>We help coaches spend more time on the fun part of coaching</h2>
         <nav aria-label="Main navigation">
-            <ul>
-                <li><a href="/generate/cricket/match_report/team-sheet">Match Report Generator</a></li>
-                <li><a href="/generate/cricket/session_planner">Session Plan Generator</a></li>
-            </ul>
+            <form action="/" method="post" id="Type">
+                <select id="type" name="docType" required>
+                    <option value="1">Match Report Generator</option>
+                    <option value="2">Session Plan Generator</option>
+                    <option value="3">Incident Report Generator</option>
+                </select>
+                <button type="submit">Start Document</button>
+            </form>
         </nav>
     </header>
 
